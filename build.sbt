@@ -3,7 +3,7 @@ lazy val root = (project in file(".")).
     name := "tautology-verifier",
     organization := "com.sakthipriyan",
     version := "1.0-SNAPSHOT",
-    scalaVersion := "2.11.8"
+    scalaVersion := "2.11.7"
   )
 
 libraryDependencies ++= Seq(

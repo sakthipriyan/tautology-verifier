@@ -1,7 +1,6 @@
 package com.sakthipriyan.tverifier
 
-import scala.collection.mutable.ArrayBuffer
-import scala.collection.mutable.Stack
+import scala.collection.mutable.{ ArrayBuffer, Stack }
 
 object TautologyVerifier extends App {
   print("Welcome to Tautology Verifier. To exit press Ctrl + D. \nEnter Statement: ")
@@ -11,14 +10,14 @@ object TautologyVerifier extends App {
 }
 
 class TautologyVerifier(val statement: String) {
-  
-  val tree = buildTree(statement)
+  val tree = buildTree()
   val variables = statement.replaceAll("[^a-z]", "").toSet.toList
 
-  def buildTree(s: String): Node = {
-    val infix = s.replaceAll("\\s+", "").toList
+  def buildTree(): Node = {
+    val infix = statement.replaceAll("\\s+", "").toList
     val postfix = getPostFix(infix)
     val nodeStack = new Stack[Node]
+
     for ((c, i) <- postfix.zipWithIndex) {
       (c match {
         case '|' => {
@@ -66,18 +65,18 @@ class TautologyVerifier(val statement: String) {
   }
 
   def isTautology: Boolean = {
-    for (input <- buildInputs(variables)) {
+    for (input <- buildInputs) {
       if (!tree.evaluate(input)) return false
     }
     return true
   }
 
-  def buildInputs(variables: List[Char]): Seq[Map[Char, Boolean]] = {
+  def buildInputs: List[Map[Char, Boolean]] = {
     val variableCount = variables.size
     val inputCount = Math.pow(2, variableCount).toInt
     (for (i <- 0 until inputCount) yield (
       for (j <- 0 until variableCount)
-        yield (variables(j), if ((i >> j) % 2 == 0) false else true)).toMap).toSeq
+        yield (variables(j), if ((i >> j) % 2 == 0) false else true)).toMap).toList
   }
 }
 
