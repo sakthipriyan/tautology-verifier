@@ -7,6 +7,5 @@ lazy val root = (project in file(".")).
   )
 
 libraryDependencies ++= Seq(
-  "ch.qos.logback" % "logback-classic" % "1.1.7",
   "org.scalatest" %% "scalatest" % "2.2.6" % "test"
 )
